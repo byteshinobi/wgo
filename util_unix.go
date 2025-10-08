@@ -8,6 +8,7 @@ import (
 	"os/exec"
 	"strings"
 	"syscall"
+	"time"
 	"unicode/utf8"
 )
 
@@ -26,8 +27,27 @@ const (
 func stop(cmd *exec.Cmd) {
 	// https://stackoverflow.com/questions/22470193/why-wont-go-kill-a-child-process-correctly
 	// https://medium.com/@felixge/killing-a-child-process-and-all-of-its-children-in-go-54079af94773
+	if cmd.Process == nil {
+		return
+	}
 	pgid := -cmd.Process.Pid
-	_ = syscall.Kill(pgid, syscall.SIGTERM)
+	syscall.Kill(pgid, syscall.SIGTERM)
+
+	// Give the process a moment to terminate gracefully
+	time.Sleep(100 * time.Millisecond)
+
+	// Check if the process is still running by querying the OS
+	if isProcessRunning(cmd.Process.Pid) {
+		syscall.Kill(pgid, syscall.SIGKILL)
+	}
+}
+
+// isProcessRunning checks if a process with the given PID is still running
+func isProcessRunning(pid int) bool {
+	// Try to send signal 0 to check if process exists
+	// Signal 0 doesn't actually send a signal, it just checks if the process exists
+	err := syscall.Kill(pid, 0)
+	return err == nil
 }
 
 // https://stackoverflow.com/questions/22470193/why-wont-go-kill-a-child-process-correctly

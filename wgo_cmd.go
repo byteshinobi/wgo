@@ -534,6 +534,8 @@ func (wgoCmd *WgoCmd) Run() error {
 				case <-wgoCmd.ctx.Done():
 					stop(cmd)
 					<-waitDone
+					// Give a small delay to ensure the process is fully terminated
+					time.Sleep(50 * time.Millisecond)
 					return nil
 				case err := <-cmdResult:
 					if i == len(wgoCmd.ArgsList)-1 {
@@ -566,6 +568,8 @@ func (wgoCmd *WgoCmd) Run() error {
 				case <-timer.C: // Timer expired, reload commands.
 					stop(cmd)
 					<-waitDone
+					// Give a small delay to ensure the process is fully terminated
+					time.Sleep(50 * time.Millisecond)
 					break CMD_CHAIN
 				}
 			}
