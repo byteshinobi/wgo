@@ -8,9 +8,9 @@ jobs:
     runs-on: 'ubuntu-latest'
     steps:
       - name: 'Clone repo'
-        uses: 'actions/checkout@v4'
+        uses: 'actions/checkout@v5'
       - name: 'Install go'
-        uses: 'actions/setup-go@v5'
+        uses: 'actions/setup-go@v6'
         with:
           go-version: 'stable'
       - run: 'GOOS=linux GOARCH=amd64 go build -ldflags "-w" -o wgo-linux .'

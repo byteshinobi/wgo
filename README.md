@@ -1,6 +1,6 @@
-[![tests](https://github.com/bokwoon95/sq/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/bokwoon95/wgo/actions)
-[![Go Report Card](https://goreportcard.com/badge/github.com/bokwoon95/wgo)](https://goreportcard.com/report/github.com/bokwoon95/wgo)
-[![Coverage Status](https://shields.io/coverallsCoverage/github/bokwoon95/wgo?branch=main)](https://coveralls.io/github/bokwoon95/wgo?branch=main)
+[![tests](https://github.com/byteshinobi/sq/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/byteshinobi/wgo/actions)
+[![Go Report Card](https://goreportcard.com/badge/github.com/byteshinobi/wgo)](https://goreportcard.com/report/github.com/byteshinobi/wgo)
+[![Coverage Status](https://shields.io/coverallsCoverage/github/byteshinobi/wgo?branch=main)](https://coveralls.io/github/byteshinobi/wgo?branch=main)
 
 <div align="center"><h1>wgo – watcher-go</h1></div>
 <div align="center"><h4>Live reload for Go apps (and more)</h4></div>
@@ -8,10 +8,10 @@
 
 ## Installation
 
-You can [download](#download-the-latest-release) binaries from [the release page](https://github.com/bokwoon95/wgo/releases/latest), or use the Go command:
+You can [download](#download-the-latest-release) binaries from [the release page](https://github.com/byteshinobi/wgo/releases/latest), or use the Go command:
 
 ```shell
-go install github.com/bokwoon95/wgo@latest
+go install github.com/byteshinobi/wgo@latest
 ```
 
 If you are on macOS, you may install it with [Homebrew](https://brew.sh).
@@ -36,12 +36,12 @@ Usage:
 
 Pass in the -h flag to the wgo/wgo run to learn what flags there are i.e. wgo -h, wgo run -h
 
-Core documentation resides at https://github.com/bokwoon95/wgo#quickstart
+Core documentation resides at https://github.com/byteshinobi/wgo#quickstart
 ```
 
 ## Why this exists
 
-Too many file watchers either force you to wrap your commands into strings, require config files or log tons of noisy output to your stdout. In contrast, `wgo` is [dead simple](#quickstart) and silent by default. The implementation is also really short, most of it resides in just two files ([wgo\_cmd.go](https://github.com/bokwoon95/wgo/blob/main/wgo_cmd.go) and [main.go](https://github.com/bokwoon95/wgo/blob/main/main.go)). You can read the entire codebase in one sitting, [start here](https://github.com/bokwoon95/wgo/blob/main/START_HERE.md).
+Too many file watchers either force you to wrap your commands into strings, require config files or log tons of noisy output to your stdout. In contrast, `wgo` is [dead simple](#quickstart) and silent by default. The implementation is also really short, most of it resides in just two files ([wgo\_cmd.go](https://github.com/byteshinobi/wgo/blob/main/wgo_cmd.go) and [main.go](https://github.com/byteshinobi/wgo/blob/main/main.go)). You can read the entire codebase in one sitting, [start here](https://github.com/byteshinobi/wgo/blob/main/START_HERE.md).
 
 It can be used like [`go run`](#wgo-run).
 
@@ -477,48 +477,48 @@ I've been calling it wi-go or wuh-go inside my head.
 
 ## Contributing
 
-See [START\_HERE.md](https://github.com/bokwoon95/wgo/blob/main/START_HERE.md).
+See [START\_HERE.md](https://github.com/byteshinobi/wgo/blob/main/START_HERE.md).
 
 ## Download the latest release
 
-[Release page](https://github.com/bokwoon95/wgo/releases/latest)
+[Release page](https://github.com/byteshinobi/wgo/releases/latest)
 
 ### Linux
 
-[https://github.com/bokwoon95/wgo/releases/latest/download/wgo-linux](https://github.com/bokwoon95/wgo/releases/latest/download/wgo-linux)
+[https://github.com/byteshinobi/wgo/releases/latest/download/wgo-linux](https://github.com/byteshinobi/wgo/releases/latest/download/wgo-linux)
 
 ```shell
-curl --location --output wgo 'https://github.com/bokwoon95/wgo/releases/latest/download/wgo-linux'
+curl --location --output wgo 'https://github.com/byteshinobi/wgo/releases/latest/download/wgo-linux'
 ```
 
 ### Linux (ARM)
 
-[https://github.com/bokwoon95/wgo/releases/latest/download/wgo-linux-arm](https://github.com/bokwoon95/wgo/releases/latest/download/wgo-linux-arm)
+[https://github.com/byteshinobi/wgo/releases/latest/download/wgo-linux-arm](https://github.com/byteshinobi/wgo/releases/latest/download/wgo-linux-arm)
 
 ```shell
-curl --location --output wgo "https://github.com/bokwoon95/wgo/releases/latest/download/wgo-linux-arm"
+curl --location --output wgo "https://github.com/byteshinobi/wgo/releases/latest/download/wgo-linux-arm"
 ```
 
 ### macOS
 
-[https://github.com/bokwoon95/wgo/releases/latest/download/wgo-macos](https://github.com/bokwoon95/wgo/releases/latest/download/wgo-macos)
+[https://github.com/byteshinobi/wgo/releases/latest/download/wgo-macos](https://github.com/byteshinobi/wgo/releases/latest/download/wgo-macos)
 
 ```shell
-curl --location --output wgo "https://github.com/bokwoon95/wgo/releases/latest/download/wgo-macos"
+curl --location --output wgo "https://github.com/byteshinobi/wgo/releases/latest/download/wgo-macos"
 ```
 
 ### macOS (Apple Silicon)
 
-[https://github.com/bokwoon95/wgo/releases/latest/download/wgo-macos-apple-silicon](https://github.com/bokwoon95/wgo/releases/latest/download/wgo-macos-apple-silicon)
+[https://github.com/byteshinobi/wgo/releases/latest/download/wgo-macos-apple-silicon](https://github.com/byteshinobi/wgo/releases/latest/download/wgo-macos-apple-silicon)
 
 ```shell
-curl --location --output wgo "https://github.com/bokwoon95/wgo/releases/latest/download/wgo-macos-apple-silicon"
+curl --location --output wgo "https://github.com/byteshinobi/wgo/releases/latest/download/wgo-macos-apple-silicon"
 ```
 
 ### Windows
 
-[https://github.com/bokwoon95/wgo/releases/latest/download/wgo-windows.exe](https://github.com/bokwoon95/wgo/releases/latest/download/wgo-windows.exe)
+[https://github.com/byteshinobi/wgo/releases/latest/download/wgo-windows.exe](https://github.com/byteshinobi/wgo/releases/latest/download/wgo-windows.exe)
 
 ```bat
-curl --location --output wgo.exe "https://github.com/bokwoon95/wgo/releases/latest/download/wgo-windows.exe"
+curl --location --output wgo.exe "https://github.com/byteshinobi/wgo/releases/latest/download/wgo-windows.exe"
 ```
