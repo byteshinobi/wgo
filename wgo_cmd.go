@@ -193,7 +193,9 @@ func WgoCommand(ctx context.Context, wgoNumber int, args []string) (*WgoCmd, err
 
 	// Parse flags.
 	var debounce, poll string
+	var showVersion bool
 	flagset := flag.NewFlagSet("", flag.ContinueOnError)
+	flagset.BoolVar(&showVersion, "version", false, "Print version information and exit.")
 	flagset.StringVar(&wgoCmd.Dir, "cd", "", "Change to a different directory to run the commands.")
 	flagset.BoolVar(&verbose, "verbose", false, "Log file events.")
 	flagset.BoolVar(&wgoCmd.Exit, "exit", false, "Exit when the last command exits.")
@@ -284,6 +286,11 @@ Flags:
 	err = flagset.Parse(args)
 	if err != nil {
 		return nil, err
+	}
+	if showVersion {
+		version := getVersion()
+		fmt.Println(version)
+		return nil, flag.ErrHelp // This will cause main() to exit gracefully
 	}
 	if verbose {
 		if wgoNumber > 1 {

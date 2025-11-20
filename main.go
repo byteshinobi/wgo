@@ -12,6 +12,9 @@ import (
 	"syscall"
 )
 
+// version is set at build time via ldflags. If not set, it defaults to "dev".
+var version = "0.5.16"
+
 const helptext = `Usage:
   wgo [FLAGS] <command> [ARGUMENTS...]
   wgo gcc -o main main.c
@@ -33,6 +36,12 @@ Core documentation resides at https://github.com/byteshinobi/wgo#quickstart
 func main() {
 	if len(os.Args) == 1 {
 		fmt.Print(helptext)
+		return
+	}
+
+	// Check for version flag early
+	if len(os.Args) > 1 && (os.Args[1] == "-version" || os.Args[1] == "--version") {
+		fmt.Printf("\nVersion: %s\n\n", getVersion())
 		return
 	}
 
@@ -83,4 +92,11 @@ func main() {
 	if !ok {
 		os.Exit(1)
 	}
+}
+
+func getVersion() string {
+	if version == "" {
+		return "dev"
+	}
+	return version
 }
