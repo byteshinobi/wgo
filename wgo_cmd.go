@@ -14,9 +14,11 @@ import (
 	"path/filepath"
 	"regexp"
 	"runtime"
+	"sort"
 	"strconv"
 	"strings"
 	"sync"
+	"syscall"
 	"time"
 	"unicode/utf8"
 
@@ -408,8 +410,8 @@ func (wgoCmd *WgoCmd) Run() error {
 	defer watcher.Close()
 	for _, root := range wgoCmd.Roots {
 		if wgoCmd.PollDuration > 0 {
-			wgoCmd.Logger.Println("POLL", filepath.ToSlash(root))
 			go wgoCmd.pollDirectory(wgoCmd.ctx, root, events)
+			wgoCmd.Logger.Println("POLL", filepath.ToSlash(root))
 		} else {
 			wgoCmd.addDirsRecursively(watcher, root)
 		}
@@ -633,8 +635,14 @@ func (wgoCmd *WgoCmd) addDirsRecursively(watcher *fsnotify.Watcher, dir string) 
 		normalizedDir := filepath.ToSlash(path)
 		_, isRoot := roots[path]
 		if isRoot {
+			err := watcher.Add(path)
+			if err != nil {
+				if errors.Is(err, syscall.EMFILE) {
+					return fs.SkipAll
+				}
+				return fs.SkipDir
+			}
 			wgoCmd.Logger.Println("WATCH", normalizedDir)
-			watcher.Add(path)
 			return nil
 		}
 		for _, root := range wgoCmd.Roots {
@@ -650,8 +658,24 @@ func (wgoCmd *WgoCmd) addDirsRecursively(watcher *fsnotify.Watcher, dir string) 
 		}
 		for _, r := range wgoCmd.DirRegexps {
 			if r.MatchString(normalizedDir) {
+				err := watcher.Add(path)
+				if err != nil {
+					if errors.Is(err, syscall.EMFILE) {
+						watchList := watcher.WatchList()
+						sort.Strings(watchList)
+						unwatchCount := 256
+						if unwatchCount > len(watchList)/2 {
+							unwatchCount = int(0.2 * float64(len(watchList)))
+						}
+						for i := len(watchList) - unwatchCount; i < len(watchList); i++ {
+							watcher.Remove(watchList[i])
+						}
+						wgoCmd.Logger.Printf("ERROR too many open files (%d directories), not watching any more\n", len(watchList))
+						return fs.SkipAll
+					}
+					return fs.SkipDir
+				}
 				wgoCmd.Logger.Println("WATCH", normalizedDir)
-				watcher.Add(path)
 				return nil
 			}
 		}
@@ -663,8 +687,24 @@ func (wgoCmd *WgoCmd) addDirsRecursively(watcher *fsnotify.Watcher, dir string) 
 		if strings.HasPrefix(name, ".") {
 			return filepath.SkipDir
 		}
+		err = watcher.Add(path)
+		if err != nil {
+			if errors.Is(err, syscall.EMFILE) {
+				watchList := watcher.WatchList()
+				sort.Strings(watchList)
+				unwatchCount := 256
+				if unwatchCount > len(watchList)/2 {
+					unwatchCount = int(0.2 * float64(len(watchList)))
+				}
+				for i := len(watchList) - unwatchCount; i < len(watchList); i++ {
+					watcher.Remove(watchList[i])
+				}
+				wgoCmd.Logger.Printf("ERROR too many open files (%d directories), not watching any more\n", len(watchList))
+				return fs.SkipAll
+			}
+			return fs.SkipDir
+		}
 		wgoCmd.Logger.Println("WATCH", normalizedDir)
-		watcher.Add(path)
 		return nil
 	})
 }

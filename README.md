@@ -1,8 +1,7 @@
-[![tests](https://github.com/byteshinobi/sq/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/byteshinobi/wgo/actions)
+[![tests](https://github.com/byteshinobi/wgo/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/byteshinobi/wgo/actions)
 [![Go Report Card](https://goreportcard.com/badge/github.com/byteshinobi/wgo)](https://goreportcard.com/report/github.com/byteshinobi/wgo)
 [![Coverage Status](https://shields.io/coverallsCoverage/github/byteshinobi/wgo?branch=main)](https://coveralls.io/github/byteshinobi/wgo?branch=main)
 
-<div align="center"><h1>wgo – watcher-go</h1></div>
 <div align="center"><h4>Live reload for Go apps (and more)</h4></div>
 <hr>
 
@@ -333,7 +332,7 @@ With -verbose:
 
 ```shell
 $ wgo run -verbose ./server
-[wgo] WATCH /Users/bokwoon/Documents/wgo/testdata
+[wgo] WATCH /Users/byteshinobi/Documents/wgo/testdata
 [wgo] WATCH args
 [wgo] WATCH build_flags
 [wgo] WATCH dir
